@@ -1,0 +1,24 @@
+{
+  "specs": [
+    {
+      "name": "Whoop",
+      "note": "Analytics-first wearable with subscription model; strong recovery insights."
+    },
+    {
+      "name": "Fitbit",
+      "note": "Broad consumer ecosystem; devices + app with community features."
+    },
+    {
+      "name": "Garmin",
+      "note": "Advanced tracking and mapping; favored by outdoor athletes."
+    },
+    {
+      "name": "Oura Ring",
+      "note": "Ring-form factor focusing on sleep and readiness metrics."
+    },
+    {
+      "name": "Polar",
+      "note": "Specialized training features and chest-strap integration for detailed HR analytics."
+    }
+  ]
+}
