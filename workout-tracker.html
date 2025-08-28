@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout & BMI Tracker | Vēla</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    :root {
+      --sidebar-width: 260px;
+      --mobile-header-height: 60px;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    body[data-theme="light"] {
+      --bg-color: #f8f9fa;
+      --text-color: #212529;
+      --card-bg: #fff;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+      --primary-gradient: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+    }
+
+    body[data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #eee;
+      --card-bg: #1e1e1e;
+      --card-shadow: rgba(0, 0, 0, 0.7);
+      --primary-gradient: linear-gradient(135deg, #536976 0%, #292e49 100%);
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background: var(--primary-gradient);
+      color: white;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 4px 0 15px var(--card-shadow);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar .container-fluid {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .sidebar .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 1.2px;
+    }
+
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-weight: 500;
+      margin: 10px 0;
+      text-decoration: none;
+      font-size: 1.1rem;
+      gap: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      color: #ffd700;
+    }
+
+    .sidebar .profile {
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .sidebar .profile img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      text-align: center;
+      padding-top: 20px;
+    }
+
+
+    .hamburger-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .footer {
+      background: var(--card-bg);
+      color: var(--text-color);
+      font-size: 0.9rem;
+      box-shadow: 0 -2px 8px var(--card-shadow);
+      position: relative;
+      z-index: 100;
+    }
+
+
+    /* Main Content */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 20px 30px;
+      min-height: 100vh;
+      transition: margin-left 0.3s ease;
+    }
+
+    .main-header {
+      margin-bottom: 30px;
+    }
+
+    .main-header .title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* Cards */
+    .card-custom {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 6px 18px var(--card-shadow);
+      padding: 25px;
+      margin-bottom: 25px;
+      min-height: 200px;
+    }
+
+    .card-custom h4 {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      font-weight: 500;
+      border-radius: 8px;
+    }
+
+    canvas {
+      max-height: 300px;
+      width: 100%;
+    }
+
+    /* Mobile Responsive Fixes */
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 100%;
+        height: var(--mobile-header-height);
+        position: fixed;
+        padding: 0;
+        flex-direction: row;
+        align-items: center;
+        bottom: auto;
+      }
+
+      .sidebar .container-fluid {
+        padding: 0 15px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        gap: 15px;
+      }
+
+      .sidebar .logo {
+        font-size: 1.3rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+      }
+
+      .hamburger-btn {
+        display: block;
+        flex-shrink: 0;
+      }
+
+      .sidebar nav {
+        display: none;
+        position: absolute;
+        top: var(--mobile-header-height);
+        left: 0;
+        width: 100%;
+        background: var(--primary-gradient);
+        flex-direction: column;
+        padding: 15px;
+        box-shadow: 0 8px 15px var(--card-shadow);
+      }
+
+      .sidebar nav.show {
+        display: flex;
+      }
+
+      .sidebar .profile {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .sidebar .profile img {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .sidebar .profile .name,
+      .sidebar .profile #logoutBtn {
+        display: none;
+      }
+
+      .sidebar .profile .edit-btn {
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: #ffd700;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      /* MAIN MOBILE FIXES */
+      .main-content {
+        margin-left: 0;
+        padding: calc(var(--mobile-header-height) + 25px) 20px 25px 20px;
+      }
+
+      .main-header .title {
+        font-size: 2rem;
+        margin-bottom: 15px;
+      }
+
+      /* Enhanced card spacing and sizing for mobile */
+      .card-custom {
+        padding: 25px 20px;
+        margin-bottom: 25px;
+        min-height: auto;
+        /* Remove fixed height on mobile */
+      }
+
+      /* Better form spacing on mobile */
+      .form-control {
+        padding: 15px;
+        font-size: 16px;
+        /* Prevents zoom on iOS */
+        margin-bottom: 18px;
+      }
+
+      .btn {
+        padding: 15px 25px;
+        font-size: 16px;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      /* Improve chart visibility on mobile */
+      canvas {
+        max-height: 250px;
+        margin: 20px 0;
+      }
+
+      /* Better text sizing on mobile */
+      .card-custom h4 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+      }
+
+      /* Workout and BMI list improvements */
+      #workoutContainer div,
+      #bmiHistoryList div {
+        padding: 15px 10px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      /* AI suggestions better formatting */
+      #aiSuggestions {
+        font-size: 14px;
+        line-height: 1.5;
+        padding: 15px;
+        background: rgba(108, 117, 125, 0.1);
+        border-radius: 8px;
+        margin-top: 10px;
+      }
+
+      /* BMI result styling */
+      #bmiResult {
+        font-size: 16px;
+        padding: 15px;
+        text-align: center;
+        background: rgba(40, 167, 69, 0.1);
+        border-radius: 8px;
+        margin-top: 15px;
+      }
+
+      .footer {
+        padding-bottom: 70px;
+        /* So it doesn't overlap with bottom nav or sidebar in mobile */
+      }
+
+    }
+
+    /* Tablet adjustments */
+    @media (min-width: 901px) and (max-width: 1200px) {
+      .main-content {
+        padding: 20px 25px;
+      }
+
+      .card-custom {
+        padding: 25px;
+      }
+    }
+
+    /* Extra small phones */
+    @media (max-width: 576px) {
+      .main-content {
+        padding: calc(var(--mobile-header-height) + 20px) 15px 20px 15px;
+      }
+
+      .card-custom {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+      }
+
+      .main-header .title {
+        font-size: 1.8rem;
+      }
+
+      .sidebar .logo {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+
+<body data-theme="light">
+
+  <div class="sidebar">
+    <div class="container-fluid">
+      <div class="logo">Vēla Smart Ring</div>
+
+      <nav id="navMenu">
+        <a href="dashboard.html"><i class="bi bi-house-fill"></i> Home</a>
+        <a href="workout-tracker.html" class="active"><i class="bi bi-bicycle"></i> Workout</a>
+        <a href="profile.html"><i class="bi bi-person-fill"></i> Profile</a>
+        <button id="toggleTheme" class="btn btn-outline-light btn-sm mt-2">Toggle Theme</button>
+      </nav>
+
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <div class="sidebar-footer">
+        <div class="profile">
+          <img id="profileAvatar" src="https://i.pravatar.cc/80" alt="User Avatar" />
+          <div class="name" id="usernameDisplay">User Name</div>
+        </div>
+        <button id="logoutBtn" class="btn btn-sm btn-outline-warning mt-2">Logout</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="main-header">
+      <div class="title">Workout & BMI Tracker</div>
+      <div id="todayDate"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card-custom">
+          <h4>Add Workout</h4>
+          <form id="wForm">
+            <div class="mb-3"><label class="form-label">Date</label><input class="form-control" id="date" type="date"
+                required></div>
+            <div class="mb-3"><label class="form-label">Exercise</label><input class="form-control" id="ex" required>
+            </div>
+            <div class="mb-3"><label class="form-label">Duration (min)</label><input class="form-control" id="du"
+                type="number" min="1" required></div>
+            <div class="mb-3"><label class="form-label">Calories Burned</label><input class="form-control" id="cal"
+                type="text" readonly></div>
+            <button class="btn btn-primary w-100" type="submit">Save Workout</button>
+          </form>
+        </div>
+
+        <div class="card-custom mt-4">
+          <h4>BMI Calculator</h4>
+          <form id="bmiForm">
+            <div class="mb-3"><label class="form-label">Height (cm)</label><input class="form-control" id="height"
+                type="number" min="50" required></div>
+            <div class="mb-3"><label class="form-label">Weight (kg)</label><input class="form-control" id="weight"
+                type="number" min="20" required></div>
+            <button class="btn btn-success w-100" type="submit">Calculate BMI</button>
+          </form>
+          <div id="bmiResult" class="mt-2 fw-bold"></div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card-custom">
+          <h4>Your Workouts</h4>
+          <div id="workoutContainer"></div>
+          <canvas id="progressChart" class="mt-3"></canvas>
+          <button class="btn btn-secondary mt-3 w-100" id="downloadPDF">Download PDF</button>
+          <button class="btn btn-danger mt-2 w-100" id="clearAll">Clear All Workouts</button>
+        </div>
+
+        <div class="card-custom mt-4">
+          <h4>BMI History</h4>
+          <div id="bmiHistoryList"></div>
+          <canvas id="bmiChart" class="mt-3"></canvas>
+        </div>
+
+        <div class="card-custom mt-4">
+          <h4>AI Workout Suggestions</h4>
+          <p id="aiSuggestions">Loading...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const navMenu = document.getElementById('navMenu');
+      hamburgerBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+      });
+
+      const theme = localStorage.getItem('theme') || 'light';
+      document.body.setAttribute('data-theme', theme);
+
+      document.getElementById('toggleTheme').addEventListener('click', () => {
+        const newTheme = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        drawProgressChart();
+        drawBMIChart();
+      });
+
+      document.getElementById('todayDate').textContent = new Date().toLocaleDateString(undefined, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      let username = sessionStorage.getItem("username") || "User";
+      document.getElementById("usernameDisplay").textContent = username;
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        sessionStorage.clear();
+        // window.location.href = "login.html";
+      });
+
+      updateWorkoutList();
+      updateBMIHistory();
+      generateAISuggestions();
+    });
+
+    const METS = { running: 9.8, cycling: 8.5, walking: 3.5, "push ups": 8, yoga: 3 };
+    const workouts = JSON.parse(localStorage.getItem('workouts')) || [];
+    const bmiHistory = JSON.parse(localStorage.getItem('bmiHistory')) || [];
+    const userProfile = JSON.parse(localStorage.getItem('fitnessProfile')) || { goal: "general_fitness" };
+
+    document.getElementById('du').addEventListener('input', calculateCalories);
+    document.getElementById('ex').addEventListener('input', calculateCalories);
+
+    function calculateCalories() {
+      const ex = document.getElementById('ex').value.toLowerCase().trim();
+      const duration = parseFloat(document.getElementById('du').value);
+      const weight = 70;
+      if (!ex || !duration || isNaN(duration)) {
+        document.getElementById('cal').value = '';
+        return;
+      }
+      const met = METS[ex] || 5;
+      const cal = ((met * 3.5 * weight) / 200) * duration;
+      document.getElementById('cal').value = cal.toFixed(0);
+    }
+
+    document.getElementById('wForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const w = {
+        date: document.getElementById('date').value,
+        ex: document.getElementById('ex').value,
+        du: document.getElementById('du').value,
+        cal: document.getElementById('cal').value
+      };
+      workouts.push(w);
+      workouts.sort((a, b) => new Date(a.date) - new Date(b.date));
+      localStorage.setItem('workouts', JSON.stringify(workouts));
+      updateWorkoutList();
+      generateAISuggestions();
+      e.target.reset();
+      document.getElementById('cal').value = '';
+    });
+
+    document.getElementById('bmiForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      if (isNaN(height) || isNaN(weight)) return;
+
+      const bmi = (weight / ((height / 100) ** 2)).toFixed(2);
+      const date = new Date().toLocaleDateString();
+      bmiHistory.push({ date, bmi });
+      localStorage.setItem('bmiHistory', JSON.stringify(bmiHistory));
+      document.getElementById('bmiResult').textContent = `Your BMI: ${bmi}`;
+      updateBMIHistory();
+    });
+
+    function updateWorkoutList() {
+      const container = document.getElementById('workoutContainer');
+      if (workouts.length === 0) {
+        container.innerHTML = '<p>No workouts logged yet. Add one to get started!</p>';
+      } else {
+        container.innerHTML = workouts.map(w => `<div class="p-1 border-bottom">${w.date} - ${w.ex} (${w.du} min, ${w.cal} cal)</div>`).join('');
+      }
+      drawProgressChart();
+    }
+
+    function drawProgressChart() {
+      if (window.progressChartObj) window.progressChartObj.destroy();
+      const ctx = document.getElementById('progressChart').getContext('2d');
+      const labels = workouts.map(w => w.date);
+      const data = workouts.map(w => parseInt(w.cal));
+      window.progressChartObj = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Calories Burned',
+            data,
+            borderColor: '#007bff',
+            backgroundColor: 'rgba(0, 123, 255, 0.1)',
+            fill: true,
+            tension: 0.3
+          }]
+        },
+        options: { responsive: true }
+      });
+    }
+
+    function updateBMIHistory() {
+      const container = document.getElementById('bmiHistoryList');
+      if (bmiHistory.length === 0) {
+        container.innerHTML = '<p>No BMI records yet.</p>';
+      } else {
+        container.innerHTML = bmiHistory.map(b => `<div class="p-1 border-bottom">${b.date}: ${b.bmi}</div>`).join('');
+      }
+      drawBMIChart();
+    }
+
+    function drawBMIChart() {
+      if (window.bmiChartObj) window.bmiChartObj.destroy();
+      const ctx = document.getElementById('bmiChart').getContext('2d');
+      const labels = bmiHistory.map(b => b.date);
+      const data = bmiHistory.map(b => parseFloat(b.bmi));
+      window.bmiChartObj = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'BMI',
+            data,
+            borderColor: '#28a745',
+            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+            fill: true,
+            tension: 0.3
+          }]
+        },
+        options: { responsive: true }
+      });
+    }
+
+    document.getElementById('downloadPDF').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text('Workout Summary', 10, 10);
+      workouts.forEach((w, i) => doc.text(`${w.date} - ${w.ex}: ${w.cal} calories`, 10, 20 + (i * 10)));
+
+      const canvas = document.getElementById('progressChart');
+      if (canvas.width > 0 && canvas.height > 0) {
+        const imgData = canvas.toDataURL('image/png');
+        const imgProps = doc.getImageProperties(imgData);
+        const pdfWidth = doc.internal.pageSize.getWidth() - 20;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(imgData, 'PNG', 10, 80, pdfWidth, pdfHeight);
+      }
+      doc.save('workout-summary.pdf');
+    });
+
+    document.getElementById('clearAll').addEventListener('click', () => {
+      if (confirm('Are you sure you want to delete all workouts? This cannot be undone.')) {
+        localStorage.removeItem('workouts');
+        workouts.length = 0;
+        updateWorkoutList();
+        generateAISuggestions();
+      }
+    });
+
+    function generateAISuggestions() {
+      let suggestion = "Log your first workout to get personalized AI suggestions!";
+      if (workouts.length > 0) {
+        const goal = userProfile.goal || "general_fitness";
+        const last = workouts[workouts.length - 1];
+        const durations = workouts.map(w => parseInt(w.du));
+        let trend = "stable";
+        if (durations.length >= 2) {
+          trend = durations[durations.length - 1] > durations[durations.length - 2] ? "increasing" : "decreasing";
+        }
+        suggestion = `Based on your last workout (${last.ex} for ${last.du} mins): `;
+        if (goal === "weight_loss") {
+          suggestion += "To boost weight loss, try incorporating high-intensity interval training (HIIT) or extending your cardio sessions. ";
+        } else if (goal === "muscle_gain") {
+          suggestion += "To build more muscle, consider adding strength exercises like push-ups, squats, or lifting weights. ";
+        } else {
+          suggestion += "For general fitness, maintaining a consistent mix of cardio and strength exercises is key. ";
+        }
+        if (trend === "increasing") {
+          suggestion += "Your workout duration is increasing. That's fantastic progress, keep up the great work!";
+        } else if (trend === "decreasing") {
+          suggestion += "Your workout duration recently decreased. Remember, consistency is more important than intensity. Even a short workout is better than none!";
+        } else {
+          suggestion += "You're maintaining a steady pace. Keep it up!"
+        }
+      }
+      document.getElementById('aiSuggestions').textContent = suggestion;
+    }
+
+  </script>
+  <footer class="footer text-center py-3">
+    © 2025 VēlaRing Inc. | All Rights Reserved
+  </footer>
+</body>
+
+
+
+
+</html>

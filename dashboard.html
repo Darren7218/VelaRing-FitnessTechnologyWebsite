@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Vēla</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --sidebar-width: 260px;
+      --mobile-header-height: 60px;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    body[data-theme="light"] {
+      --bg-color: #f8f9fa;
+      --text-color: #212529;
+      --card-bg: #fff;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+      --primary-gradient: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+    }
+
+    body[data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #eee;
+      --card-bg: #1e1e1e;
+      --card-shadow: rgba(0, 0, 0, 0.7);
+      --primary-gradient: linear-gradient(135deg, #536976 0%, #292e49 100%);
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background: var(--primary-gradient);
+      color: white;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 4px 0 15px var(--card-shadow);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar .container-fluid {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .sidebar .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 1.2px;
+    }
+
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-weight: 500;
+      margin: 10px 0;
+      text-decoration: none;
+      font-size: 1.1rem;
+      gap: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      color: #ffd700;
+    }
+
+    .sidebar .profile {
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .sidebar .profile img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-bottom: 10px;
+      object-fit: cover;
+    }
+
+    .hamburger-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      text-align: center;
+      padding-top: 20px;
+    }
+
+
+    /* Main Content */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 20px 30px;
+      min-height: 100vh;
+      transition: margin-left 0.3s ease;
+    }
+
+    .main-header {
+      margin-bottom: 30px;
+    }
+
+    .main-header .title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* Dashboard specific styles */
+    .cards-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 25px;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+
+    .cards-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .cards-scroll::-webkit-scrollbar-thumb {
+      background: #6b73ff;
+      border-radius: 5px;
+    }
+
+    .cards-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .card {
+      flex: 0 0 300px;
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 6px 18px var(--card-shadow);
+      padding: 25px 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px var(--card-shadow);
+    }
+
+    .card h5 {
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .metric-icon {
+      font-size: 2.6rem;
+      margin-bottom: 12px;
+      color: #6b73ff;
+      transition: color 0.3s ease;
+    }
+
+    .card:hover .metric-icon {
+      color: #000dff;
+    }
+
+    .progress-circle {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      margin: 15px auto;
+    }
+
+    .progress-circle svg {
+      transform: rotate(-90deg);
+      width: 100%;
+      height: 100%;
+    }
+
+    .progress-circle circle {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+    }
+
+    .progress-bg {
+      stroke: #eee;
+    }
+
+    .progress-bar {
+      stroke: #6b73ff;
+      stroke-dasharray: 283;
+      stroke-dashoffset: 283;
+      transition: stroke-dashoffset 1s ease-out;
+    }
+
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: var(--text-color);
+    }
+
+    .heartbeat {
+      animation: heartbeat 1.2s infinite;
+      color: #dc3545;
+    }
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.3);
+      }
+    }
+
+    #weatherInfo {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 40px;
+      border-top: 1px solid var(--card-shadow);
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 100%;
+        height: var(--mobile-header-height);
+        position: fixed;
+        padding: 0;
+        flex-direction: row;
+        align-items: center;
+        bottom: auto;
+      }
+
+      .sidebar .container-fluid {
+        padding: 0 15px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        gap: 15px;
+      }
+
+      .sidebar .logo {
+        font-size: 1.3rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+      }
+
+      .hamburger-btn {
+        display: block;
+        flex-shrink: 0;
+      }
+
+      .sidebar nav {
+        display: none;
+        position: absolute;
+        top: var(--mobile-header-height);
+        left: 0;
+        width: 100%;
+        background: var(--primary-gradient);
+        flex-direction: column;
+        padding: 15px;
+        box-shadow: 0 8px 15px var(--card-shadow);
+      }
+
+      .sidebar nav.show {
+        display: flex;
+      }
+
+      .sidebar .profile {
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .sidebar .profile img {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .sidebar .profile .name,
+      .sidebar .profile #logoutBtn {
+        display: none;
+      }
+
+      /* Main content mobile adjustments */
+      .main-content {
+        margin-left: 0;
+        padding: calc(var(--mobile-header-height) + 25px) 20px 25px 20px;
+      }
+
+      .main-header .title {
+        font-size: 2rem;
+        margin-bottom: 15px;
+      }
+
+      .cards-scroll {
+        gap: 15px;
+      }
+
+      .card {
+        flex: 1 0 250px;
+      }
+    }
+
+    /* Tablet adjustments */
+    @media (min-width: 901px) and (max-width: 1200px) {
+      .main-content {
+        padding: 20px 25px;
+      }
+    }
+
+    /* Extra small phones */
+    @media (max-width: 576px) {
+      .main-content {
+        padding: calc(var(--mobile-header-height) + 20px) 15px 20px 15px;
+      }
+
+      .main-header .title {
+        font-size: 1.8rem;
+      }
+
+      .sidebar .logo {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Dark mode chart adjustments */
+    body[data-theme="dark"] .card {
+      background-color: #1e1e1e;
+      color: #ddd;
+    }
+  </style>
+</head>
+
+<body data-theme="light">
+
+  <div class="sidebar">
+    <div class="container-fluid">
+      <div class="logo">Vēla Smart Ring</div>
+
+      <nav id="navMenu">
+        <a href="#" class="active"><i class="bi bi-house-fill"></i> Home</a>
+        <a href="#sleepSection"><i class="bi bi-moon-fill"></i> Sleep</a>
+        <a href="#heartRateSection"><i class="bi bi-heart-fill"></i> Heart Rate</a>
+        <a href="workout-tracker.html"><i class="bi bi-bicycle"></i> Workout</a>
+        <a href="profile.html"><i class="bi bi-person-fill"></i> Profile</a>
+        <button id="toggleTheme" class="btn btn-outline-light btn-sm mt-2">Toggle Theme</button>
+      </nav>
+
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <div class="sidebar-footer">
+        <div class="profile">
+          <img id="profileAvatar" src="https://i.pravatar.cc/80" alt="User Avatar" />
+          <div class="name" id="usernameDisplay">User Name</div>
+        </div>
+        <button id="logoutBtn" class="btn btn-sm btn-outline-warning mt-2">Logout</button>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="main-header">
+      <div class="title">Main Dashboard</div>
+      <div id="todayDate"></div>
+    </div>
+
+    <div class="cards-scroll" aria-label="Dashboard Metrics">
+      <!-- Sleep Card -->
+      <div class="card">
+        <div class="metric-icon"><i class="bi bi-moon-fill"></i></div>
+        <h5>Sleep Overview</h5>
+        <div class="progress-circle">
+          <svg width="90" height="90">
+            <circle class="progress-bg" cx="45" cy="45" r="43"></circle>
+            <circle class="progress-bar" cx="45" cy="45" r="43" style="stroke-dasharray: 270; stroke-dashoffset: 60;">
+            </circle>
+          </svg>
+          <div class="progress-text" id="sleepTimeText">7h 45m</div>
+        </div>
+        <div id="sleepReminder" style="color: #D0021B; font-weight: 600; margin-top: 5px;"></div>
+      </div>
+
+      <!-- Heart Rate Card -->
+      <div class="card">
+        <div class="metric-icon heartbeat"><i class="bi bi-heart-fill"></i></div>
+        <h5>Heart Rate</h5>
+        <div class="heart-rate-value" style="font-size: 2rem; font-weight: bold;">72 bpm</div>
+      </div>
+
+      <!-- Step Trend Card -->
+      <div class="card">
+        <div class="metric-icon"><i class="bi bi-shuffle"></i></div>
+        <h5>Step Trend (7 Days)</h5>
+        <div class="progress-circle">
+          <svg width="90" height="90">
+            <circle class="progress-bg" cx="45" cy="45" r="43"></circle>
+            <circle class="progress-bar" cx="45" cy="45" r="43" style="stroke-dasharray: 270; stroke-dashoffset: 80;">
+            </circle>
+          </svg>
+          <div class="progress-text" id="stepCountText">8500</div>
+        </div>
+        <div id="stepReminder" style="color: #4A90E2; font-weight: 600; margin-top: 5px;"></div>
+      </div>
+
+      <!-- Blood Oxygen -->
+      <div class="card">
+        <div class="metric-icon"><i class="bi bi-droplet-fill"></i></div>
+        <h5>Blood Oxygen</h5>
+        <div style="font-size: 2rem; font-weight: bold;">98%</div>
+        <div style="color: #28a745; font-weight: 600;">Normal</div>
+      </div>
+
+      <!-- Body Temperature -->
+      <div class="card">
+        <div class="metric-icon"><i class="bi bi-thermometer-half"></i></div>
+        <h5>Body Temperature</h5>
+        <div style="font-size: 2rem; font-weight: bold;">36.7°C</div>
+        <div style="color: #28a745; font-weight: 600;">Stable</div>
+      </div>
+
+      <!-- Stress Index -->
+      <div class="card">
+        <div class="metric-icon"><i class="bi bi-emoji-frown-fill"></i></div>
+        <h5>Stress Index</h5>
+        <div style="font-size: 2rem; font-weight: bold;">24</div>
+        <div style="color: #4A90E2; font-weight: 600;">Low Stress</div>
+      </div>
+    </div>
+
+    <!-- Weather Info Card -->
+    <div id="weatherInfo" class="card mb-4 p-3 d-flex flex-row align-items-center" style="gap: 15px;">
+      Loading weather...
+    </div>
+
+    <div class="card mb-4">
+      <h5>Health Trend Overview</h5>
+      <canvas id="healthTrendChart"></canvas>
+    </div>
+
+    <!-- Daily goals -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5>Daily Goals</h5>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Sleep Goal (8h)
+            <span class="badge bg-success rounded-pill">✔️</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Steps Goal (10,000)
+            <span class="badge bg-warning text-dark rounded-pill">⚠️ 1,500 left</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Water Intake (8 glasses)
+            <span class="badge bg-success rounded-pill">✔️</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body" id="sleepSection">
+        <h5>Sleep Stages Breakdown</h5>
+        <canvas id="sleepChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Heart Rate Chart -->
+    <div class="card mb-4" id="heartRateSection">
+      <h5>Resting Heart Rate Over Last Week</h5>
+      <canvas id="heartRateChart" width="50" height="20"></canvas>
+    </div>
+
+    <!-- Step Trend Chart -->
+    <div class="card mb-4">
+      <h5>Step Trend Over Last Week</h5>
+      <canvas id="stepChart" width="50" height="20"></canvas>
+    </div>
+
+    <!-- Cookie consent -->
+    <div id="cookieConsent" class="alert alert-dark fixed-bottom m-2" style="display:none;">
+      This site uses cookies to improve your experience.
+      <button id="acceptCookies" class="btn btn-sm btn-light">Accept</button>
+    </div>
+
+    <footer>© 2025 Vēla Smart Ring. All rights reserved.</footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const navMenu = document.getElementById('navMenu');
+      hamburgerBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+      });
+
+      const theme = localStorage.getItem('theme') || 'light';
+      document.body.setAttribute('data-theme', theme);
+
+      document.getElementById('toggleTheme').addEventListener('click', () => {
+        const newTheme = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
+
+      document.getElementById('todayDate').textContent = new Date().toLocaleDateString(undefined, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      let username = sessionStorage.getItem("username") || "User";
+      document.getElementById("usernameDisplay").textContent = username;
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        sessionStorage.clear();
+        // window.location.href = "login.html";
+      });
+
+      // Optional avatar from localStorage
+      const avatar = localStorage.getItem('avatarURL');
+      if (avatar) {
+        document.getElementById('profileAvatar').src = avatar;
+      }
+
+      // Initialize charts and other dashboard features
+      initializeCharts();
+      fetchWeather();
+      updateReminders();
+    });
+
+    function fetchWeather(city = 'Kuala Lumpur') {
+      const apiKey = '074941a0ae2f69806a02b9819b4a0122';
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+      $.ajax({
+        url: url,
+        method: 'GET',
+        success: function (data) {
+          const temp = data.main.temp;
+          const description = data.weather[0].description;
+          const icon = data.weather[0].icon;
+
+          $('#weatherInfo').html(`
+            <div class="d-flex align-items-center gap-3">
+              <img src="https://openweathermap.org/img/wn/${icon}@2x.png" 
+                   alt="${description}" 
+                   style="width: 60px; height: 60px;" />
+              <div>
+                <h6 style="margin: 0; font-weight: 600;">Weather in ${city}</h6>
+                <p style="margin: 0;">${temp}°C, ${description}</p>
+              </div>
+            </div>
+          `);
+        },
+        error: function () {
+          $('#weatherInfo').text('Failed to load weather data');
+        }
+      });
+    }
+
+    function initializeCharts() {
+      const sleepCtx = document.getElementById('sleepChart').getContext('2d');
+      const heartRateCtx = document.getElementById('heartRateChart').getContext('2d');
+      const stepCtx = document.getElementById('stepChart').getContext('2d');
+
+      new Chart(sleepCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Awake', 'Light', 'Deep', 'REM'],
+          datasets: [{
+            label: 'Minutes',
+            data: [45, 210, 120, 60],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+
+      new Chart(heartRateCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Resting Heart Rate',
+            data: [70, 72, 68, 69, 71, 73, 72],
+            borderColor: '#dc3545',
+            fill: false,
+            tension: 0.4,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: false }
+          }
+        }
+      });
+
+      new Chart(stepCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Steps',
+            data: [7000, 8500, 9000, 7500, 8000, 10000, 9500],
+            borderColor: '#4A90E2',
+            fill: true,
+            backgroundColor: 'rgba(74,144,226,0.2)',
+            tension: 0.3,
+            pointRadius: 3,
+            pointHoverRadius: 5
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('healthTrendChart'), {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [
+            {
+              label: 'Heart Rate (bpm)',
+              data: [72, 74, 76, 73, 71, 75, 70],
+              borderColor: '#dc3545',
+              fill: false,
+              tension: 0.4
+            },
+            {
+              label: 'Stress Index',
+              data: [30, 35, 28, 32, 27, 24, 20],
+              borderColor: '#4A90E2',
+              fill: false,
+              tension: 0.4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'top' },
+            title: { display: true, text: 'Heart Rate & Stress Trend (7 Days)' }
+          }
+        }
+      });
+    }
+
+    function updateReminders() {
+      const sleepHours = 7.75;
+      const sleepReminder = document.getElementById('sleepReminder');
+      if (sleepHours < 8) {
+        sleepReminder.textContent = "Try to get 8+ hours of sleep!";
+      } else {
+        sleepReminder.textContent = "";
+      }
+
+      const steps = 8500;
+      const stepReminder = document.getElementById('stepReminder');
+      if (steps < 10000) {
+        stepReminder.textContent = "Keep moving to reach 10,000 steps!";
+      } else {
+        stepReminder.textContent = "";
+      }
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return decodeURIComponent(parts.pop().split(";").shift());
+      return null;
+    }
+  </script>
+</body>
+
+</html>

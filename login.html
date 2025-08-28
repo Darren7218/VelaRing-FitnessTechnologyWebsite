@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vēla — Login / Sign Up</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: url("Fitness1.jpg") no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+    }
+
+    /* Overlay for better contrast */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding-top: 120px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      transition: color 0.3s;
+    }
+
+    /* Default Form */
+    #loginForm {
+      width: 100%;
+      max-width: 450px;
+      padding: 25px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      color: #000;
+      transition: background 0.3s, color 0.3s;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #loginForm label {
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    #loginForm input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      color: #000;
+    }
+
+    #loginForm button {
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    small.muted {
+      display: block;
+      margin-top: 10px;
+      color: #666;
+    }
+
+    .password-field {
+      position: relative;
+      width: 100%;
+    }
+
+    .password-field input {
+      width: 100%;
+      padding: 10px;
+      padding-right: 45px;
+      /* Space for icon so text doesn't overlap */
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .password-field .icon-btn {
+      position: absolute;
+      top: 20%;
+      right: -170px;
+      /* Inside the input box */
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    .password-field .icon-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: #666;
+    }
+
+    /* Dark mode icon color */
+    body.dark-mode .password-field .icon-btn svg {
+      stroke: #fff;
+    }
+
+
+
+
+    /* Cookiebar */
+    .cookiebar {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #e8f4ff;
+      color: #003366;
+      border: 1px solid #bcdfff;
+      padding: 15px 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      z-index: 9999;
+    }
+
+    .cookiebar .btn {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      margin: 5px;
+      border-radius: 6px;
+    }
+
+    .cookiebar .btn:hover {
+      background: #0056b3;
+    }
+
+    /* Navbar */
+    .custom-navbar {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 15px 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand.logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #06203b !important;
+    }
+
+    .navbar .nav-link {
+      color: #333;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .navbar .nav-link:hover {
+      color: #0d6efd;
+    }
+
+    /* DARK MODE STYLES */
+    body.dark-mode {
+      background: #121212 !important;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode::before {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    body.dark-mode h1 {
+      color: #fff;
+    }
+
+    body.dark-mode #loginForm {
+      background: rgba(30, 30, 30, 0.95);
+      color: #fff;
+    }
+
+    body.dark-mode input {
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+    }
+
+    body.dark-mode .cookiebar {
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+    }
+
+    body.dark-mode .custom-navbar {
+      background: #1e1e1e !important;
+    }
+
+    body.dark-mode .custom-navbar .nav-link,
+    body.dark-mode .custom-navbar .navbar-brand {
+      color: #fff !important;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand logo" href="index.html">Vēla</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav align-items-lg-center gap-lg-4 text-center">
+        <li class="nav-item"><a class="nav-link" href="why-vela.html">Why Vēla</a></li>
+        <li class="nav-item"><a class="nav-link" href="how-it-works.html">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="fitness-gadgets.html">Fitness Gadgets</a></li>
+        <li class="nav-item"><a class="nav-link" href="smart-ring-details.html">Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact us</a></li>
+        <li class="nav-item">
+          <a href="login.html" class="btn btn-primary btn-sm rounded-pill mt-2 mt-lg-0">Join Now</a>
+        </li>
+        <li class="nav-item">
+          <button id="darkModeToggle" class="btn btn-outline-secondary ms-lg-3 mt-2 mt-lg-0">🌙 Dark Mode</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Dark Mode Script -->
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('darkModeToggle');
+  const navbar = document.querySelector('.navbar');
+  const isDark = localStorage.getItem('darkMode') === 'true';
+
+  if (isDark) {
+    document.body.classList.add('dark-mode');
+    navbar.classList.remove('navbar-light');
+    navbar.classList.add('navbar-dark', 'bg-dark');
+  }
+
+  toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const dark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', dark);
+
+    if (dark) {
+      navbar.classList.remove('navbar-light');
+      navbar.classList.add('navbar-dark', 'bg-dark');
+      toggleBtn.textContent = '☀️ Light Mode';
+    } else {
+      navbar.classList.remove('navbar-dark', 'bg-dark');
+      navbar.classList.add('navbar-light');
+      toggleBtn.textContent = '🌙 Dark Mode';
+    }
+  });
+});
+
+  </script>
+
+  <!-- Main Login Section -->
+  <div class="container">
+    <h1>Login / Sign Up</h1>
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input id="username" name="username" required placeholder="e.g. alex" />
+
+      <label for="password">Password</label>
+      <div class="password-field">
+        <input id="password" name="password" type="password" required minlength="8"
+          placeholder="At least 8 chars, include uppercase, lowercase, number, and a symbol" />
+        <button type="button" id="togglePwd" class="icon-btn" aria-label="Show password">
+          <svg id="eyeOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          <svg id="eyeClosed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.86 21.86 0 0 1 5.06-6.06" />
+            <path d="M1 1l22 22" />
+            <path d="M9.88 9.88A3 3 0 0 0 12 15a3 3 0 0 0 2.12-.88" />
+          </svg>
+        </button>
+      </div>
+
+
+
+      <button class="btn btn-primary" type="submit">Continue</button>
+      <small class="muted">By continuing you accept cookies so we can remember your username for 7 days.</small>
+    </form>
+
+    <!-- Cookie Consent -->
+    <div id="cookiebar" class="cookiebar">
+      <p>We use cookies to personalize your experience and remember your preferences.</p>
+      <button class="btn accept" onclick="acceptCookies()">Accept</button>
+      <button class="btn decline" onclick="declineCookies()">Decline</button>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function acceptCookies() {
+      localStorage.setItem('cookiesAccepted', 'true');
+      document.getElementById('cookiebar').style.display = 'none';
+    }
+    function declineCookies() {
+      localStorage.setItem('cookiesAccepted', 'false');
+      document.getElementById('cookiebar').style.display = 'none';
+    }
+    function setCookie(name, value, days) {
+      const d = new Date();
+      d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+      document.cookie = `${name}=${encodeURIComponent(value)}; expires=${d.toUTCString()}; path=/`;
+    }
+    function getCookie(name) {
+      const cname = name + "=";
+      const ca = decodeURIComponent(document.cookie).split(';');
+      for (let c of ca) {
+        c = c.trim();
+        if (c.indexOf(cname) === 0) return c.substring(cname.length);
+      }
+      return "";
+    }
+
+    const pwdInput = document.getElementById('password');
+    const toggle = document.getElementById('togglePwd');
+    const eyeOpen = document.getElementById('eyeOpen');
+    const eyeClosed = document.getElementById('eyeClosed');
+
+    pwdInput.addEventListener('input', () => {
+      toggle.style.display = pwdInput.value.length > 0 ? 'inline-flex' : 'none';
+    });
+
+    toggle.addEventListener('click', () => {
+      const show = pwdInput.type === 'password';
+      pwdInput.type = show ? 'text' : 'password';
+      eyeOpen.style.display = show ? 'none' : 'block';
+      eyeClosed.style.display = show ? 'block' : 'none';
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      if (username && password) {
+        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("username", username);
+        if (localStorage.getItem('cookiesAccepted') === 'true') {
+          setCookie("rememberUser", username, 7);
+        } else {
+          setCookie("rememberUser", '', -1);
+        }
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Please enter both username and password.");
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vēla — Why Choose Us?</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fafafa;
+      transition: background 0.3s, color 0.3s;
+      margin: 0;
+    }
+
+    /* Navbar */
+    .navbar {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      background: #fff;
+      padding: 15px 20px;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #06203b !important;
+    }
+
+    .navbar .nav-link {
+      color: #333;
+      font-weight: 500;
+    }
+
+    .navbar .nav-link:hover {
+      color: #007bff;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(90deg, #06203b, #0d6efd);
+      color: #fff;
+      padding: 120px 20px 60px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+    /* Features */
+    .feature-ico {
+      font-size: 2rem;
+    }
+
+    .p-3 {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      transition: transform .3s;
+    }
+
+    .p-3:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Testimonials */
+    .testimonial-img-size {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    /* Table */
+    .table {
+      background: #fff;
+    }
+
+    .table th,
+    .table td {
+      color: #212529;
+    }
+
+    thead.bg-primary th {
+      background: #0d6efd !important;
+      color: #fff !important;
+    }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #ddd;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    /* ===== DARK MODE ===== */
+    body.dark-mode {
+      background: #0d0d0d;
+      /* deeper black */
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .navbar {
+      background: #181818 !important;
+    }
+
+    body.dark-mode .navbar .nav-link,
+    body.dark-mode .navbar .navbar-brand {
+      color: #fff !important;
+    }
+
+    body.dark-mode .hero {
+      background: linear-gradient(90deg, #111, #222);
+      color: #fff;
+    }
+
+    body.dark-mode .p-3 {
+      background: #1a1a1a;
+      color: #fff;
+      box-shadow: none;
+    }
+
+    body.dark-mode footer {
+      background: #181818;
+      color: #ccc;
+    }
+
+    body.dark-mode .table {
+      background: #000;
+      color: #fff;
+      border-color: #333;
+    }
+
+    body.dark-mode .table th {
+      background: #111;
+      color: #fff;
+    }
+
+    body.dark-mode .table td {
+      background: #000;
+      color: #ddd;
+    }
+
+    /* Competitor Finder */
+    body.dark-mode .card,
+    body.dark-mode .list-group-item {
+      background: #1a1a1a;
+      color: #e0e0e0;
+      border-color: #333;
+    }
+
+    body.dark-mode .input-group-text {
+      background: #2a2a2a;
+      color: #e0e0e0;
+      border-color: #444;
+    }
+
+    body.dark-mode .form-control {
+      background: #121212;
+      color: #e0e0e0;
+      border-color: #444;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand logo" href="index.html">Vēla</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav align-items-lg-center gap-lg-4 text-center">
+        <li class="nav-item"><a class="nav-link" href="why-vela.html">Why Vēla</a></li>
+        <li class="nav-item"><a class="nav-link" href="how-it-works.html">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="fitness-gadgets.html">Fitness Gadgets</a></li>
+        <li class="nav-item"><a class="nav-link" href="smart-ring-details.html">Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact us</a></li>
+        <li class="nav-item">
+          <a href="login.html" class="btn btn-primary btn-sm rounded-pill mt-2 mt-lg-0">Join Now</a>
+        </li>
+        <li class="nav-item">
+          <button id="darkModeToggle" class="btn btn-outline-secondary ms-lg-3 mt-2 mt-lg-0">🌙 Dark Mode</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Dark Mode Script -->
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('darkModeToggle');
+  const navbar = document.querySelector('.navbar');
+  const isDark = localStorage.getItem('darkMode') === 'true';
+
+  if (isDark) {
+    document.body.classList.add('dark-mode');
+    navbar.classList.remove('navbar-light');
+    navbar.classList.add('navbar-dark', 'bg-dark');
+  }
+
+  toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const dark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', dark);
+
+    if (dark) {
+      navbar.classList.remove('navbar-light');
+      navbar.classList.add('navbar-dark', 'bg-dark');
+      toggleBtn.textContent = '☀️ Light Mode';
+    } else {
+      navbar.classList.remove('navbar-dark', 'bg-dark');
+      navbar.classList.add('navbar-light');
+      toggleBtn.textContent = '🌙 Dark Mode';
+    }
+  });
+});
+
+  </script>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script> 
+   $(document).ready(function () {
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+
+    // Open Facebook share dialog
+    $('#fbShareLink').click(function (e) {
+      e.preventDefault();
+      const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+      window.open(fbShareUrl, '_blank', 'width=600,height=400');
+    });
+
+    // Open WhatsApp share dialog
+    $('#waShareLink').click(function (e) {
+      e.preventDefault();
+      const waShareUrl = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+      window.open(waShareUrl, '_blank');
+    });
+  });
+  </script>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <h1>Why Choose Vēla?</h1>
+      <p class="lead">Accurate metrics, long battery life, and privacy-first processing.</p>
+      <a class="btn btn-light btn-lg" href="#comparison">See Comparison</a>
+    </div>
+  </header>
+
+  <main class="container my-5">
+    <!-- Key Advantages -->
+    <section class="mb-4">
+      <h2 class="text-center mb-4" style="font-family:'Playfair Display', serif;">Key Advantages</h2>
+      <div class="row text-center">
+        <div class="col-md-4">
+          <div class="p-3">
+            <div class="feature-ico">⚡</div>
+            <h5>Long Battery</h5>
+            <p>Up to 7 days per charge with optimized sampling.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3">
+            <div class="feature-ico">🔬</div>
+            <h5>Clinical-grade Sensors</h5>
+            <p>High-fidelity PPG and motion sensors for robust HRV estimation.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3">
+            <div class="feature-ico">🔒</div>
+            <h5>Privacy-first</h5>
+            <p>Edge processing ensures raw signals stay on-device unless user opts in.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="mb-5">
+      <h2 class="mb-4" style="font-family:'Playfair Display', serif;">User Testimonials</h2>
+      <div id="testiCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active p-4 text-center">
+            <img src="images/atheleteA.jpg" alt="Athlete A" class="rounded-circle testimonial-img-size mb-3">
+            <blockquote class="blockquote">
+              <p>"Vēla helped me manage recovery and avoid overtraining."</p>
+              <footer class="blockquote-footer">Athlete A</footer>
+            </blockquote>
+          </div>
+          <div class="carousel-item p-4 text-center">
+            <img src="images/battery.jpg" alt="Coach B" class="rounded-circle testimonial-img-size mb-3">
+            <blockquote class="blockquote">
+              <p>"Battery life is a game-changer for long training weeks."</p>
+              <footer class="blockquote-footer">Coach B</footer>
+            </blockquote>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#testiCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#testiCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Detailed Comparison -->
+    <section id="comparison" class="mb-5">
+      <h2 class="mb-4" style="font-family:'Playfair Display', serif;">Detailed Comparison</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center">
+          <thead class="bg-primary">
+            <tr>
+              <th>Feature</th>
+              <th>Vēla</th>
+              <th>Whoop</th>
+              <th>Fitbit</th>
+              <th>Garmin</th>
+              <th>Oura Ring</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sleep Tracking</td>
+              <td>✔</td>
+              <td>✔</td>
+              <td>✔</td>
+              <td>✔</td>
+              <td>✔</td>
+            </tr>
+            <tr>
+              <td>Recovery Insights</td>
+              <td>✔</td>
+              <td>✔</td>
+              <td>✖</td>
+              <td>✔</td>
+              <td>✔</td>
+            </tr>
+            <tr>
+              <td>Advanced Analytics</td>
+              <td>✔</td>
+              <td>✔</td>
+              <td>✖</td>
+              <td>✔</td>
+              <td>✔</td>
+            </tr>
+            <tr>
+              <td>GPS/Mapping</td>
+              <td>✖</td>
+              <td>✖</td>
+              <td>✔</td>
+              <td>✔</td>
+              <td>✖</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Competitor Feature Finder -->
+    <section class="mb-5">
+      <h2 class="mb-4" style="font-family:'Playfair Display', serif;">Competitor Feature Finder</h2>
+      <p>Use the search bar to find competitors by name or a specific feature.</p>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <input type="text" id="searchInput" class="form-control rounded-end-3"
+          placeholder="Search for 'Whoop' or 'sleep metrics'...">
+      </div>
+      <div class="card rounded-all p-4 shadow-sm">
+        <div id="specsArea">
+          <p class="text-center text-muted">Loading competitor data...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom text-center">
+      <p>© 2025 VēlaRing Inc. | All Rights Reserved</p>
+      <p>Vēla, VELA, VELA RING, and Ō are trademarks of Vela Health Oy and may not be used without permission.</p>
+    </div>
+    <div class="social-share mt-3 d-flex justify-content-center align-items-center gap-3">
+      <span>📢 Share this page:</span>
+      <a href="#" target="_blank" id="fbShareLink"><img src="https://cdn-icons-png.flaticon.com/24/733/733547.png"
+          alt="Facebook" /></a>
+      <a href="#" target="_blank" id="waShareLink"><img src="https://cdn-icons-png.flaticon.com/24/733/733585.png"
+          alt="WhatsApp" /></a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Competitor Data -->
+  <script>
+    $(document).ready(function () {
+      $.ajax({
+        url: 'data/competitor-specs.json',
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+          window.competitorSpecs = data.specs || [];
+          renderSpecs(window.competitorSpecs);
+        },
+        error: function () {
+          window.competitorSpecs = [
+            { name: "Whoop", note: "Analytics-first wearable with subscription model; strong recovery insights." },
+            { name: "Fitbit", note: "Broad consumer ecosystem; devices + app with community features." },
+            { name: "Garmin", note: "Advanced tracking and mapping; favored by outdoor athletes." },
+            { name: "Oura Ring", note: "Ring-form factor focusing on sleep and readiness metrics." },
+            { name: "Polar", note: "Specialized training features and chest-strap integration for detailed HR analytics." }
+          ];
+          renderSpecs(window.competitorSpecs);
+        }
+      });
+
+      function renderSpecs(specs) {
+        let html = '<ul class="list-group list-group-flush">';
+        if (specs.length > 0) {
+          specs.forEach(s => html += `<li class="list-group-item"><strong>${s.name}</strong>: ${s.note}</li>`);
+        } else {
+          html = '<p class="text-center text-muted">No competitors found matching your search.</p>';
+        }
+        html += '</ul>';
+        $('#specsArea').html(html);
+      }
+
+      $('#searchInput').on('keyup', function () {
+        const searchTerm = $(this).val().toLowerCase();
+        const filteredSpecs = window.competitorSpecs.filter(spec => {
+          return spec.name.toLowerCase().includes(searchTerm) || spec.note.toLowerCase().includes(searchTerm);
+        });
+        renderSpecs(filteredSpecs);
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | Vēla</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --mobile-header-height: 60px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        body[data-theme="light"] {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --card-bg: #fff;
+            --card-shadow: rgba(0, 0, 0, 0.1);
+            --primary-gradient: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+        }
+
+        body[data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #eee;
+            --card-bg: #1e1e1e;
+            --card-shadow: rgba(0, 0, 0, 0.7);
+            --primary-gradient: linear-gradient(135deg, #536976 0%, #292e49 100%);
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 15px var(--card-shadow);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar .container-fluid {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .sidebar .logo {
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1.2px;
+        }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 500;
+            margin: 10px 0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            gap: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            color: #ffd700;
+        }
+
+        .sidebar .profile {
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .sidebar .profile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid white;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 20px 30px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-header {
+            margin-bottom: 30px;
+        }
+
+        .main-header .title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Cards */
+        .card-custom {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px var(--card-shadow);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card-custom h4 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Profile Form */
+        #profileForm {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 24px;
+        }
+
+        #profileForm .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #profileForm label {
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        #profileForm input,
+        #profileForm textarea,
+        #profileForm select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        body[data-theme="dark"] #profileForm input,
+        body[data-theme="dark"] #profileForm textarea,
+        body[data-theme="dark"] #profileForm select {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        #profileForm .btn {
+            grid-column: 1 / -1;
+            margin-top: 15px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-color);
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .footer {
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 0.9rem;
+            box-shadow: 0 -2px 8px var(--card-shadow);
+            position: relative;
+            z-index: 100;
+        }
+
+
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 100%;
+                height: var(--mobile-header-height);
+                position: fixed;
+                padding: 0;
+                flex-direction: row;
+                align-items: center;
+                bottom: auto;
+            }
+
+            .sidebar .container-fluid {
+                padding: 0 15px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                height: 100%;
+                width: 100%;
+                gap: 15px;
+            }
+
+            .sidebar .logo {
+                font-size: 1.3rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                min-width: 0;
+            }
+
+            .hamburger-btn {
+                display: block;
+                flex-shrink: 0;
+            }
+
+            .sidebar nav {
+                display: none;
+                position: absolute;
+                top: var(--mobile-header-height);
+                left: 0;
+                width: 100%;
+                background: var(--primary-gradient);
+                flex-direction: column;
+                padding: 15px;
+                box-shadow: 0 8px 15px var(--card-shadow);
+            }
+
+            .sidebar nav.show {
+                display: flex;
+            }
+
+            .sidebar .profile {
+                margin-top: 0;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .sidebar .profile img {
+                width: 35px;
+                height: 35px;
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+
+            .sidebar .profile .name,
+            .sidebar .profile #logoutBtn {
+                display: none;
+            }
+
+            /* Main content mobile adjustments */
+            .main-content {
+                margin-left: 0;
+                padding: calc(var(--mobile-header-height) + 25px) 20px 25px 20px;
+            }
+
+            .main-header .title {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+
+            .card-custom {
+                padding: 25px 20px;
+                margin-bottom: 25px;
+            }
+
+            .card-custom h4 {
+                font-size: 1.3rem;
+                margin-bottom: 20px;
+            }
+
+            /* Form adjustments for mobile */
+            #profileForm {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            #profileForm input,
+            #profileForm textarea,
+            #profileForm select {
+                padding: 15px;
+                font-size: 16px;
+                /* Prevents zoom on iOS */
+            }
+
+            #profileForm .btn {
+                padding: 15px 25px;
+                font-size: 16px;
+                margin-top: 20px;
+            }
+        }
+
+        /* Tablet adjustments */
+        @media (min-width: 901px) and (max-width: 1200px) {
+            .main-content {
+                padding: 20px 25px;
+            }
+
+            .card-custom {
+                padding: 25px;
+            }
+        }
+
+        /* Extra small phones */
+        @media (max-width: 576px) {
+            .main-content {
+                padding: calc(var(--mobile-header-height) + 20px) 15px 20px 15px;
+            }
+
+            .card-custom {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+
+            .main-header .title {
+                font-size: 1.8rem;
+            }
+
+            .sidebar .logo {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+
+    <div class="sidebar">
+        <div class="container-fluid">
+            <div class="logo">Vēla Smart Ring</div>
+
+            <nav id="navMenu">
+                <a href="dashboard.html"><i class="bi bi-house-fill"></i> Home</a>
+                <a href="workout-tracker.html"><i class="bi bi-bicycle"></i> Workout</a>
+                <a href="profile.html" class="active"><i class="bi bi-person-fill"></i> Profile</a>
+                <button id="toggleTheme" class="btn btn-outline-light btn-sm mt-2">Toggle Theme</button>
+            </nav>
+
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation">
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div class="sidebar-footer">
+                <div class="profile">
+                    <img id="profileAvatar" src="https://i.pravatar.cc/80" alt="User Avatar" />
+                    <div class="name" id="usernameDisplay">User Name</div>
+                </div>
+                <button id="logoutBtn" class="btn btn-sm btn-outline-warning mt-2">Logout</button>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="main-header">
+            <div class="title">User Profile</div>
+            <div id="todayDate"></div>
+        </div>
+
+        <div class="card-custom">
+            <h4>Update Your Details</h4>
+            <form id="profileForm">
+                <div class="field">
+                    <label for="realName">Full Name</label>
+                    <input id="realName" name="realName" type="text" required placeholder="e.g. Alex Tan"
+                        pattern="^[A-Za-z]+(?:\s+[A-Za-z]+){1,4}$">
+                </div>
+                <div class="field">
+                    <label for="age">Age</label>
+                    <input id="age" name="age" type="number" min="10" max="100" required placeholder="e.g. 25">
+                </div>
+                <div class="field">
+                    <label for="contact">Contact Number</label>
+                    <input id="contact" name="contact" type="tel" pattern="[0-9]{10,15}" required
+                        placeholder="e.g. 0123456789">
+                </div>
+                <div class="field">
+                    <label for="weight">Weight (kg)</label>
+                    <input id="weight" name="weight" type="number" min="20" max="300" placeholder="e.g. 70">
+                </div>
+                <div class="field">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" rows="3" required
+                        placeholder="Enter your full address"></textarea>
+                </div>
+                <div class="field">
+                    <label for="height">Height (cm)</label>
+                    <input id="height" name="height" type="number" min="50" max="250" placeholder="e.g. 175">
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" required placeholder="e.g. alex@example.com">
+                </div>
+                <div class="field">
+                    <label for="goal">Fitness Goal</label>
+                    <select id="goal" name="goal">
+                        <option value="">-- Select --</option>
+                        <option value="weight_loss">Weight Loss</option>
+                        <option value="muscle_gain">Muscle Gain</option>
+                        <option value="endurance">Endurance</option>
+                        <option value="general_fitness">General Fitness</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary w-100" type="submit">Save Profile</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            © 2025 VēlaRing Inc. | All Rights Reserved
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const navMenu = document.getElementById('navMenu');
+            hamburgerBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('show');
+            });
+
+            const theme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', theme);
+
+            document.getElementById('toggleTheme').addEventListener('click', () => {
+                const newTheme = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            document.getElementById('todayDate').textContent = new Date().toLocaleDateString(undefined, {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            let username = sessionStorage.getItem("username") || "User";
+            document.getElementById("usernameDisplay").textContent = username;
+
+            document.getElementById("logoutBtn").addEventListener("click", () => {
+                sessionStorage.clear();
+                // window.location.href = "login.html";
+            });
+
+            // Load saved profile
+            const saved = localStorage.getItem('fitnessProfile');
+            if (saved) {
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(k => {
+                    const el = document.getElementById(k);
+                    if (el) el.value = data[k];
+                });
+            }
+
+            // Optional avatar from localStorage
+            const avatar = localStorage.getItem('avatarURL');
+            if (avatar) {
+                document.getElementById('profileAvatar').src = avatar;
+            }
+        });
+
+        // Save profile
+        document.getElementById('profileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const profileData = {
+                realName: document.getElementById('realName').value.trim(),
+                age: document.getElementById('age').value.trim(),
+                contact: document.getElementById('contact').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                address: document.getElementById('address').value.trim(),
+                height: document.getElementById('height').value.trim(),
+                weight: document.getElementById('weight').value.trim(),
+                goal: document.getElementById('goal').value
+            };
+            localStorage.setItem('fitnessProfile', JSON.stringify(profileData));
+            alert('Profile saved successfully!');
+        });
+    </script>
+
+
+</body>
+
+</html>

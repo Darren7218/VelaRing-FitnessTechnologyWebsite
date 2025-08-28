@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vēla — Contact Us</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: url("contact.jpg") no-repeat center center fixed;
+      background-size: cover;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Overlay for readability */
+    .overlay {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      max-width: 600px;
+      margin: 100px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #06203b;
+      transition: color 0.3s;
+    }
+
+    .form-label {
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    input,
+    textarea {
+      border-radius: 6px;
+      padding: 10px;
+      transition: background 0.3s, color 0.3s, border 0.3s;
+    }
+
+    button.btn-primary {
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      padding: 15px 20px;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #06203b !important;
+    }
+
+    .navbar .nav-link {
+      color: #333;
+      font-weight: 500;
+    }
+
+    .navbar .nav-link:hover {
+      color: #0d6efd;
+    }
+
+    /* Footer */
+    footer {
+      background: #fff;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #ddd;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background: #121212 !important;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .overlay {
+      background: rgba(30, 30, 30, 0.95);
+      color: #fff;
+    }
+
+    body.dark-mode h2 {
+      color: #fff !important;
+    }
+
+    body.dark-mode .navbar {
+      background: #1e1e1e !important;
+    }
+
+    body.dark-mode .navbar .nav-link,
+    body.dark-mode .navbar .navbar-brand {
+      color: #fff !important;
+    }
+
+    body.dark-mode footer {
+      background: #1e1e1e;
+      color: #ccc;
+    }
+
+    body.dark-mode input,
+    body.dark-mode textarea {
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand logo" href="index.html">Vēla</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav align-items-lg-center gap-lg-4 text-center">
+        <li class="nav-item"><a class="nav-link" href="why-vela.html">Why Vēla</a></li>
+        <li class="nav-item"><a class="nav-link" href="how-it-works.html">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="fitness-gadgets.html">Fitness Gadgets</a></li>
+        <li class="nav-item"><a class="nav-link" href="smart-ring-details.html">Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact us</a></li>
+        <li class="nav-item">
+          <a href="login.html" class="btn btn-primary btn-sm rounded-pill mt-2 mt-lg-0">Join Now</a>
+        </li>
+        <li class="nav-item">
+          <button id="darkModeToggle" class="btn btn-outline-secondary ms-lg-3 mt-2 mt-lg-0">🌙 Dark Mode</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Dark Mode Script -->
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleBtn = document.getElementById('darkModeToggle');
+  const navbar = document.querySelector('.navbar');
+  const isDark = localStorage.getItem('darkMode') === 'true';
+
+  if (isDark) {
+    document.body.classList.add('dark-mode');
+    navbar.classList.remove('navbar-light');
+    navbar.classList.add('navbar-dark', 'bg-dark');
+  }
+
+  toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const dark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', dark);
+
+    if (dark) {
+      navbar.classList.remove('navbar-light');
+      navbar.classList.add('navbar-dark', 'bg-dark');
+      toggleBtn.textContent = '☀️ Light Mode';
+    } else {
+      navbar.classList.remove('navbar-dark', 'bg-dark');
+      navbar.classList.add('navbar-light');
+      toggleBtn.textContent = '🌙 Dark Mode';
+    }
+  });
+});
+
+  </script>
+
+  <!-- Contact Form -->
+  <div class="overlay">
+    <h2>Contact Us</h2>
+    <p>Send us a message or feedback.</p>
+    <form id="contactForm">
+      <label class="form-label">Name</label>
+      <input id="cname" class="form-control" required>
+      <label class="form-label">Email</label>
+      <input id="cemail" class="form-control" type="email" required>
+      <label class="form-label">Message</label>
+      <textarea id="cmsg" class="form-control" rows="5" required></textarea>
+      <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+    <div id="contactStatus" class="alert alert-info mt-3" style="display:none;"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom text-center">
+      <p>© 2025 VēlaRing Inc. | All Rights Reserved</p>
+      <p>Vēla, VELA, VELA RING, and Ō are trademarks of Vela Health Oy and may not be used without permission.</p>
+    </div>
+    <div class="social-share mt-3 d-flex justify-content-center align-items-center gap-3">
+      <span>📢 Share this page:</span>
+      <a href="#" target="_blank" id="fbShareLink"><img src="https://cdn-icons-png.flaticon.com/24/733/733547.png"
+          alt="Facebook" /></a>
+      <a href="#" target="_blank" id="waShareLink"><img src="https://cdn-icons-png.flaticon.com/24/733/733585.png"
+          alt="WhatsApp" /></a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  </script>
+
+
+  <script> 
+   $(document).ready(function () {
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+
+    // Open Facebook share dialog
+    $('#fbShareLink').click(function (e) {
+      e.preventDefault();
+      const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+      window.open(fbShareUrl, '_blank', 'width=600,height=400');
+    });
+
+    // Open WhatsApp share dialog
+    $('#waShareLink').click(function (e) {
+      e.preventDefault();
+      const waShareUrl = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+      window.open(waShareUrl, '_blank');
+    });
+  });
+  </script>
+
+  <script>
+    // Save draft inputs
+    ['cname', 'cemail', 'cmsg'].forEach(id => {
+      const el = document.getElementById(id);
+      const key = 'draft_' + id;
+      el.value = localStorage.getItem(key) || '';
+      el.addEventListener('input', () => localStorage.setItem(key, el.value));
+    });
+
+    // Handle form submission
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = cname.value.trim(), email = cemail.value.trim(), msg = cmsg.value.trim();
+      if (msg.length < 10) {
+        alert('Please enter at least 10 characters.');
+        return;
+      }
+      const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+      messages.push({ name, email, msg, ts: Date.now() });
+      localStorage.setItem('messages', JSON.stringify(messages));
+      document.getElementById('contactStatus').style.display = 'block';
+      document.getElementById('contactStatus').textContent = 'Message saved locally (demo). We will get back to you!';
+      e.target.reset();
+      ['cname', 'cemail', 'cmsg'].forEach(id => localStorage.removeItem('draft_' + id));
+    });
+  </script>
+
+</body>
+
+</html>

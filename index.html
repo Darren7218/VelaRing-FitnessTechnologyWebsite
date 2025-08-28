@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vēla Smart Ring</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<!-- Bootstrap Navbar (Responsive & Transparent) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Navbar Test</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .custom-navbar {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff !important;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md custom-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="#">Vela</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link text-white" href="why-vela.html">Why Vela</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="how-it-works.html">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="fitness-gadgets.html">Fitness Gadgets</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="smart-ring-details.html">Shop</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="cta-nav">
+        <a class="btn btn-primary" href="login.html">Join Now</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <!-- Header Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">INTUITIVE WELLNESS</div>
+      <h2 class="main-title">Vēla Smart Ring</h2>
+      <h1 class="subtitle">A Ring. A Rhythm. A Revelation.</h1>
+      <p class="tagline">Always with you.</p>
+      <div class="cta">
+<a href="login.html" class="btn btn-dark rounded-pill px-4">Join Now</a>
+    </div>
+  </section>
+
+
+  <!-- Feature Section -->
+<div class="membership-wrapper">
+<section class="membership-section">
+<h2 class="section-title"><br><br>Unlock the language of</br><br>your body with <em>our membership</em></h2></br></h2>
+<a href="why-vela.html" class="btn btn-light rounded-pill px-4" id="btnWhyOura">Why Vēla</a>
+
+  <div class="carousel">
+    <div class="carousel-track">
+      <div class="card" data-index="0" style="background-image: url('images/sleep.jpg');">
+        <div class="card-overlay">
+          <div class="card-header">
+            <span class="tag">Sleep and Recovery</span>
+            <button class="expand-btn">+</button>
+          </div>
+          <h2 class="card-title">Experience deeper, <em>more restful sleep</em></h2>
+          <div class="card-detail">
+            <p class="card-summary">Track your sleep patterns and recovery to wake up feeling truly refreshed every day.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-index="1" style="background-image: url('images/RUN.jpg');">
+        <div class="card-overlay">
+          <div class="card-header">
+            <span class="tag">Wellness Insights</span>
+            <button class="expand-btn">+</button>
+          </div>
+          <h2 class="card-title">Live smarter, <em>live healthier</em></h2>
+          <div class="card-detail">
+            <p class="card-summary">Understand your body’s signals with personalized insights to guide your well-being.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-index="2" style="background-image: url('images/exercise.jpg');">
+        <div class="card-overlay">
+          <div class="card-header">
+            <span class="tag">Activity & Fitness</span>
+            <button class="expand-btn">+</button>
+          </div>
+          <h2 class="card-title">Stay motivated, <em>reach your goals</em></h2>
+          <div class="card-detail">
+            <p class="card-summary">Monitor your daily movement and progress to keep your fitness journey on track.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-index="3" style="background-image: url('images/sleepb.jpg');">
+        <div class="card-overlay">
+          <div class="card-header">
+            <span class="tag">Stress Management</span>
+            <button class="expand-btn">+</button>
+          </div>
+          <h2 class="card-title">Find balance, <em>reduce stress</em></h2>
+          <div class="card-detail">
+            <p class="card-summary">Track your heart rate variability and breathing to stay calm and centered throughout the day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+<div id="mobileFullModal" class="mobile-full-modal hidden">
+  <button id="closeFullModal" aria-label="关闭">&times;</button>
+  <div class="modal-content">
+    <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
+  </div>
+</div>
+
+    <button class="carousel-btn prev" disabled>&larr;</button>
+    <button class="carousel-btn next">&rarr;</button>
+  </div>
+    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+</section>
+</div>
+
+
+  <!-- how it works -->
+<section class="section">
+  <div class="section-container">
+    <div class="left-content">
+      <div class="small-label">FORM MEETS FUNCTION</div>
+      <h1 class="title">
+        Engineered for precision,<br>
+        made to accompany<br>
+        <em>your everyday grace</em>
+      </h1>
+    </div>
+
+    <div class="right-content">
+      <p class="description">
+        Experience the comfort of wearing Vēla all day and night,
+        gathering intimate health insights tailored just for you.
+        Your finger reveals the most precise readings from over 20 key biometrics,
+        guiding you to truly understand how you feel.
+      </p>
+      <a href="how-it-works.html" class="btn btn-light rounded-pill px-4 py-2 text-secondary d-inline-block">
+        How It Works
+      </a>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="scroll-container">
+  <section class="section fade-in" style="background-image: url('images/ring\ 1.jpg');">
+    <div class="text-overlay">
+      <h1>Beautiful from the inside</h1>
+      <p>Design that blends form and function at every layer.</p>
+    </div>
+  </section>
+
+  <section class="section fade-in" style="background-image: url('images/ring\ 2.jpg');">
+    <div class="text-overlay">
+      <h1>Advanced PPG Sensor</h1>
+      <p>Track your vitals with clinical-grade precision.</p>
+    </div>
+  </section>
+
+  <section class="section fade-in" style="background-image: url('images/ring\ 3.jpg');">
+    <div class="text-overlay">
+      <h1>Seamless Fit</h1>
+      <p>Wear it all day and night, without even noticing it’s there.</p>
+    </div>
+  </section>
+
+</div>
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+  <!---News & Ambasaddor-->
+<section class="in-the-news">
+  <h3 class="section-title">IN THE NEWS</h3>
+  <div class="news-grid">
+    
+    <!-- Left: Featured Video -->
+    <div class="featured-article">
+      <video class="featured-video" autoplay muted loop playsinline>
+        <source src="images/TheSmartRing.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="featured-content">
+        <span class="featured-label">FEATURED ARTICLE</span>
+        <h2 class="featured-title">The Future of Wellness:<br>AI, Privacy, and the Smart Ring</h2>
+        <a href="https://ringconn.com/zh/blogs/%E6%B6%88%E6%81%AF/smart-ring-ai-health-tracking-guide" target="_blank" class="read-more-btn">Read More →</a>      </div>
+    </div>
+
+    <!-- Right: News List -->
+    <div class="news-list">
+    <div class="news-card">
+      <p class="news-text">
+        WIRED: Why Smart Rings Are the Future of Wearable Tech
+      </p>
+      <a href="https://www.wired.com/2016/02/everyone-wants-to-make-smart-rings-but-no-one-knows-what-for/" target="_blank" class="arrow-link">↗</a>
+    </div>
+    <div class="news-card">
+      <p class="news-text">
+        Forbes: The Rise of Smart Rings — Why They’re the Future of Wearable Health
+      </p>
+      <a href="https://www.forbes.com/sites/timbajarin/2024/08/29/the-rise-of-wearable-smart-rings/" target="_blank" class="arrow-link">↗</a>
+    </div>
+
+    <div class="news-card">
+      <p class="news-text">
+        Tom’s Guide: Why Smart Rings Are the Next Big Thing in Wearable Health Tech      </p>
+      <a href="https://www.tomsguide.com/news/what-is-a-smart-ring-and-what-can-it-do-for-you" target="_blank" class="arrow-link">↗</a>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="ambassadors">
+    <h2 class="ambassadors-title">Powered by Science, Trusted by Champions</h2>
+  <p class="ambassadors-subtitle">Your journey starts here. Optimize your health, fitness, and life with our ring.</p>
+  
+  <div class="ambassador-grid">
+<div class="ambassador-grid">
+
+  <div class="amb-card video" tabindex="0" aria-label="Play Marques video" data-video-src="images/Marques.mp4">
+    <img src="images/Marques-Brownlee-thumbnail.png" alt="Marques Brownlee" />
+    <button class="play-btn" aria-hidden="true"></button>
+    <div class="info">
+      <h4>Marques Brownlee</h4>
+      <p>Content Creator</p>
+    </div>
+  </div>
+</div>
+
+    <!-- Word card -->
+<div class="card-container">
+  <div class="amb-card text">
+    <p>"Vēla Ring helped improve my recovery."</p>
+    <h5>Samatha R.<br><span>Vēla Ring User</span></h5>
+    <button class="expand-btn">+</button>
+  </div>
+
+  <div class="amb-card text">
+    <p>"Vēla has been a huge motivator to a healthier lifestyle"</p>
+    <h5>Ashlynn P.<br><span>Vēla Ring User</span></h5>
+    <button class="expand-btn">+</button>
+  </div>
+</div>
+
+<!-- Word Card Modal -->
+<div class="modal fade" id="textModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content custom-text-modal">
+      <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-body">
+        <p class="quote-text" id="modal-text-desc">"..."</p>
+        <div class="author-info mt-4">
+          <h5 id="modal-text-title">Name</h5>
+          <span class="sub-info">Vēla Ring User</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Pic Card -->
+<div class="pic-card" data-name="Ranbir Kapoor" data-desc="Track and Field Star" data-img="images/Ranbir Kapoor.jpeg">
+  <img src="images/Ranbir Kapoor.jpeg" alt="Ranbir Kapoor" />
+  <div class="info">
+    <h4>Ranbir Kapoor</h4>
+    <p>Track & Field Star</p>
+  </div>
+  <button class="plus-btn" aria-label="More info">+</button>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="picModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0 position-relative">
+      <div class="modal-body p-0 position-relative">
+        <img id="modalImg" class="w-100 rounded" alt="">
+        <div class="overlay-text">
+          <h4 id="modalTitleOverlay"></h4>
+          <p id="modalDescOverlay"></p>
+        </div>
+        <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- vid card -->
+<div class="amb-card video" data-video-src="images/Patrick Brasca.mp4" tabindex="0" aria-label="Play Marques video">
+  <img src="images/Patrick BrascaThumbnail.png" alt="Patrick Brasca" />
+  <button class="play-btn" aria-hidden="true"></button>
+  <div class="info">
+    <h4>Patrick Brasca</h4>
+    <p>World-Renown DJ & Producer</p>
+  </div>
+</div>
+
+
+<!-- Vid Modal  -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0 position-relative">
+      <div class="modal-body p-0 position-relative">
+        <video id="modalVideo" controls style="width: 100%; height: auto; border-radius: 12px;"></video>
+        <div class="overlay-text position-absolute bottom-0 start-0 p-3 text-white">
+          <h4 id="modal-title-video"></h4>
+          <p id="modal-desc-video"></p>
+        </div>
+      </div>
+      <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+
+</section>
+  <!-- Footer -->
+<footer class="footer">
+  <div class="footer-bottom text-center">
+    <p>© 2025 VēlaRing Inc. | All Rights Reserved</p>
+    <p>Vēla, VELA, VELA RING, and Ō are trademarks of Vela Health Oy and may not be used without permission.</p>
+  </div>
+
+  <div class="social-share mt-3 d-flex justify-content-center align-items-center gap-3">
+    <span>📢 Share this page:</span>
+
+    <!-- Facebook -->
+    <a href="#" target="_blank" id="fbShareLink" class="mx-2">
+      <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" />
+    </a>
+
+    <!-- WhatsApp -->
+    <a href="#" target="_blank" id="waShareLink" class="mx-2">
+      <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp" />
+    </a>
+  </div>
+</footer>
+
+
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+
+<script>
+
+  $(document).ready(function () {
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+
+    // Open Facebook share dialog
+    $('#fbShareLink').click(function (e) {
+      e.preventDefault();
+      const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+      window.open(fbShareUrl, '_blank', 'width=600,height=400');
+    });
+
+    // Open WhatsApp share dialog
+    $('#waShareLink').click(function (e) {
+      e.preventDefault();
+      const waShareUrl = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+      window.open(waShareUrl, '_blank');
+    });
+  });
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+</script>
+
+
+
+</body>
+</html>
