@@ -1,4 +1,4 @@
-Vēla Smart Ring Web App
+Vēla Smart Ring Web App https://smartringvela.netlify.app/
 
 A responsive and modern web application for Vēla Smart Ring – a wearable fitness and wellness solution. The platform provides product information, user dashboards, fitness tracking tools, and membership features in an intuitive, mobile-friendly interface.
 
