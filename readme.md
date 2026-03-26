@@ -5,19 +5,33 @@ A responsive and modern web application for Vēla Smart Ring – a wearable fitn
 ##  Project Structure
 /project-root
 │
+
 ├── index.html                # Landing page with hero section & navigation
+
 ├── why-vela.html             # Why choose Vēla? – Features & benefits
+
 ├── how-it-works.html         # Explanation of Vēla's technology & usage
+
 ├── fitness-gadgets.html      # Additional fitness gadgets & API integrations
+
 ├── smart-ring-details.html   # Product details, gallery, and specs
+
 ├── login.html                # Login / Sign Up page
+
 ├── contact.html              # Contact form page
+
 ├── dashboard.html            # User dashboard with health metrics
+
 ├── workout-tracker.html      # BMI & workout tracking with Chart.js
+
 ├── profile.html              # User profile management
+
 │
+
 ├── /images                   # Image assets for hero, features, gallery
+
 ├── /css                      # (Optional) External CSS if separated
+
 ├── /js                       # (Optional) External JS if separated
 
 ## ✨ Key Features
