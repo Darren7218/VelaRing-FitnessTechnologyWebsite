@@ -2,7 +2,7 @@ Vēla Smart Ring Web App https://smartringvela.netlify.app/
 
 A responsive and modern web application for Vēla Smart Ring – a wearable fitness and wellness solution. The platform provides product information, user dashboards, fitness tracking tools, and membership features in an intuitive, mobile-friendly interface.
 
-📂 Project Structure
+##  Project Structure
 /project-root
 │
 ├── index.html                # Landing page with hero section & navigation
@@ -20,110 +20,111 @@ A responsive and modern web application for Vēla Smart Ring – a wearable fitn
 ├── /css                      # (Optional) External CSS if separated
 ├── /js                       # (Optional) External JS if separated
 
-✨ Key Features
+## ✨ Key Features
 
-Modern Responsive UI – Built with Bootstrap 5 and custom CSS.
+* **Modern Responsive UI** – Built with Bootstrap 5 and custom CSS.
 
-Dark Mode Support – Toggle between light and dark themes (stored in localStorage).
+* **Dark Mode Support** – Toggle between light and dark themes (stored in localStorage).
 
-Landing Page – Showcases Vēla Smart Ring with animations & CTA buttons.
+* **Landing Page** – Showcases Vēla Smart Ring with animations & CTA buttons.
 
-Product Pages:
+## Product Pages:
 
-Why Vēla? – Benefits and unique selling points.
+* Why Vēla? – Benefits and unique selling points.
 
-How It Works – Step-by-step usage guide.
+* How It Works – Step-by-step usage guide.
 
-Fitness Gadgets – Compatible devices and integration options.
+* Fitness Gadgets – Compatible devices and integration options.
 
-Smart Ring Details – Specifications, gallery, and purchase section.
+* Smart Ring Details – Specifications, gallery, and purchase section.
 
-Authentication – Login/Sign-up form with password visibility toggle.
+* Authentication – Login/Sign-up form with password visibility toggle.
 
-Dashboard – Real-time health metrics display using Chart.js.
+* Dashboard – Real-time health metrics display using Chart.js.
 
-Workout & BMI Tracker – Add workouts, calculate BMI, and visualize trends.
+* Workout & BMI Tracker – Add workouts, calculate BMI, and visualize trends.
 
-Profile Page – Update personal details and preferences.
+* Profile Page – Update personal details and preferences.
 
-Contact Page – Form to reach out for support.
+* Contact Page – Form to reach out for support.
 
-Mobile-Friendly – Optimized navigation with hamburger menus.
+* Mobile-Friendly – Optimized navigation with hamburger menus.
 
-Export Feature – Generate reports using jsPDF.
+* Export Feature – Generate reports using jsPDF.
 
-🛠 Technologies Used
+## 🛠 Technologies Used
 
-HTML5 – Structure
+* **HTML5** – Structure
 
-CSS3 / Bootstrap 5 – Styling & layout
+* **CSS3 / Bootstrap 5** – Styling & layout
 
-JavaScript (ES6) – Interactivity & logic
+* **JavaScript (ES6)** – Interactivity & logic
 
-Chart.js – Graphs & health data visualization
+* **Chart.js** – Graphs & health data visualization
 
-jsPDF – Export workout reports as PDF
+* **jsPDF** – Export workout reports as PDF
 
-jQuery – Used in some pages for DOM manipulation
+* **jQuery** – Used in some pages for DOM manipulation
 
-Google Fonts – Typography
+* **Google Fonts** – Typography
 
-Font Awesome / Bootstrap Icons – Icons for UI elements
+* **Font Awesome / Bootstrap Icons** – Icons for UI elements
 
-▶️ How to Run
+## ▶️ How to Run
 
-Download or Clone the repository:
+1. Download or Clone the repository:
 
-git clone https://github.com/your-repo/vela-smart-ring.git
+```bash
+  git clone https://github.com/your-repo/vela-smart-ring.git
+```
 
+2. Open the index.html file in your preferred browser.
 
-Open the index.html file in your preferred browser.
+3. Navigate through the pages via the navbar or links.
 
-Navigate through the pages via the navbar or links.
-
-📱 Responsive Design
+## 📱 Responsive Design
 
 Works seamlessly on desktop, tablet, and mobile.
 
-Adaptive navigation:
+## Adaptive navigation:
 
 Desktop → Sidebar for dashboards & trackers.
 
 Mobile → Collapsible hamburger menu.
 
-🔐 Authentication Notes
+## 🔐 Authentication Notes
 
 Currently frontend-only (no backend or database).
 
 Future enhancements: Firebase Auth or Node.js/Express backend.
 
-📊 Dashboard & Tracking
+## 📊 Dashboard & Tracking
 
-Dashboard displays:
+* Dashboard displays:
 
-Heart rate
+1. Heart rate
 
-Steps
+2. Steps
 
-Sleep data
+3. Sleep data
 
-Weather info
+4. Weather info
 
-Workout Tracker:
+* Workout Tracker:
 
-Add exercises & track progress
+1. Add exercises & track progress
 
-BMI calculator with history
+2. BMI calculator with history
 
-AI suggestion placeholder for future enhancement
+3. AI suggestion placeholder for future enhancement
 
-🌙 Dark Mode
+## 🌙 Dark Mode
 
 Implemented across all main pages.
 
 Toggle button saves preference in localStorage.
 
-🚀 Future Improvements
+## 🚀 Future Improvements
 
 Integrate real API data (weather, fitness metrics).
 
@@ -133,7 +134,7 @@ Progressive Web App (PWA) for offline support.
 
 AI-based fitness recommendations.
 
-👨‍💻 Developed By
+## 👨‍💻 Developed By
 
 Vēla Development Team
 © 2025 VēlaRing Inc. | All Rights Reserved
